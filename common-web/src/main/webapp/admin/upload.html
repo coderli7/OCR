@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- 页面meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>资料上传</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="../plugins/adminLTE/css/font-awesome.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/ionicons.css">
+
+
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+<!-- 安哥拉 -->
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+
+<!-- 分页组件-->
+<script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+<link rel="stylesheet" href="../plugins/angularjs/pagination.css" />
+
+<!-- 逻辑相关 -->
+<script type="text/javascript" src="../js/base_pagination.js"></script>
+<script type="text/javascript" src="../js/service/sellerService.js"></script>
+<script type="text/javascript" src="../js/service/uploadService.js"></script>
+
+<script type="text/javascript" src="../js/controller/baseController.js"></script>
+<script type="text/javascript"
+	src="../js/controller/sellerController.js"></script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
+	ng-controller="sellerController" ng-init="searchEntity={'status':''}">
+	<!-- .box-body -->
+	<div class="box box-primary">
+		<div class="box-body">
+			<div>请选择文件后,上传即可:</div>
+			<br />
+
+			<!-- <input type="file" id="file" multiple="multiple"
+				class=" btn btn-primary" />  -->
+			<label for="file" class=" btn btn-default">选择文件</label> <input
+				id="file" type="file" multiple="multiple" style="display: none"
+				onchange="angular.element(this).scope().uploadImage()">
+			&nbsp;
+			<button type="button" ng-click="uploadFile1()"
+				class=" btn btn-default" style="width: 95px">上传</button>
+			<br /> <br /> <input class="form-control" id="fileCount"
+				ng-value="myVar" disabled="disabled" style="width: 190px" />
+			<div>
+				<br /> 上传结果: <br />
+				<div>
+					<div> 
+					{{uploadResults}} </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

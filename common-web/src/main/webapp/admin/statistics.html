@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- 页面meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>统计信息查询</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/font-awesome.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/ionicons.css">
+<link rel="stylesheet" href="../plugins/datepicker/css/datepicker3.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js">
+	
+</script>
+<!-- 分页组件开始 -->
+<script src="../plugins/angularjs/pagination.js"></script>
+<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+<!-- 分页组件结束 -->
+<script type="text/javascript" src="../js/base_pagination.js">
+	
+</script>
+<script type="text/javascript" src="../js/service/searchService.js?v=20191204">
+	
+</script>
+<script type="text/javascript" src="../js/controller/baseController.js">
+	
+</script>
+
+<script type="text/javascript"
+	src="../js/controller/searchController.js?v=20191204">
+	
+</script>
+<script type="text/javascript"
+	src="../plugins/datepicker/js/bootstrap-datepicker.js"></script>
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
+	ng-controller="searchController">
+	<!-- .box-body -->
+	<div class="box box-primary">
+		<br />
+		<div class="box-body">
+			<div class="table-box">
+				<div class="box-tools pull-left">
+					<div class="has-feedback">
+						开始日期：&nbsp;<i class="fa fa-calendar"></i>&nbsp;<input type="date"
+							class="input" ng-model="searchEntity.startDate">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结束日期：&nbsp;<i class="fa fa-calendar"></i>&nbsp;<input
+							type="date" ng-model="searchEntity.endDate">&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default"
+							ng-click="statistics(searchEntity.startDate,searchEntity.endDate)"
+							style="width: 100px;">查询成功率</button>
+						&nbsp;&nbsp;
+						<button class="btn btn-default"
+							ng-click="statisticQuestions(searchEntity.startDate,searchEntity.endDate)">查询异常信息</button>
+
+						&nbsp;&nbsp;
+						<button class="btn btn-default"
+							ng-click="statisticBytes(searchEntity.startDate,searchEntity.endDate)">字节统计</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div>
+			<table class="table table-bordered table-striped" width="1000px">
+				<tbody>
+					<tr ng-repeat="tip in tips.Info track by $index">
+						<th>{{tip}}</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>

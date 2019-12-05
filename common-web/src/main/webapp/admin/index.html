@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- 页面meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>票据管理</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+
+<link rel="icon" href="../img/assets/img/favicon.ico">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/font-awesome.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/ionicons.css">
+<link rel="stylesheet" href="../plugins/datepicker/css/datepicker3.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../plugins/adminLTE/js/app.min.js"></script>
+<script type="text/javascript">
+	function SetIFrameHeight() {
+		var iframeid = document.getElementById("iframe");
+		if (document.getElementById) {
+			iframeid.height = document.documentElement.clientHeight;
+		}
+	}
+</script>
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/service/loginService.js"></script>
+<script type="text/javascript" src="../js/controller/indexController.js"></script>
+<script type="text/javascript"
+    src="../plugins/datepicker/js/bootstrap-datepicker.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pyg"
+	ng-controller="indexController" ng-init="showLoginName()">
+	<div class="wrapper">
+
+		<!-- 页面头部 -->
+		<header class="main-header">
+			<a href="index.html" class="logo"> <span class="logo-mini"><b>票据管理</b></span>
+				<span class="logo-lg"><b>票据管理</b></span>
+			</a>
+			<nav class="navbar navbar-static-top">
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						<li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								src="../img/user2-160x160.jpg" class="user-image"
+								alt="User Image"> <span class="hidden-xs">欢迎登录:
+									{{loginName}}</span>
+						</a>
+							<ul class="dropdown-menu">
+								<li class="user-header"><img src="../img/user2-160x160.jpg"
+									class="img-circle" alt="User Image">
+
+									<p>{{loginName}}</p></li>
+								<li class="user-footer">
+									<div class="pull-right">
+										<a href="../logout" class="btn btn-default btn-flat">注销</a>
+									</div>
+								</li>
+							</ul></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<!-- 导航侧栏 -->
+		<aside class="main-sidebar">
+			<section class="sidebar">
+				<div class="user-panel"></div>
+				<ul class="sidebar-menu">
+					<!-- 菜单 -->
+					<li class="treeview">
+					<a href="#"> <i class="fa fa-th"></i> <span>资料上传</span> <span class="pull-right-container"> <i
+								class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+						<ul class="treeview-menu">
+							<li id="admin-login"><a href="upload.html" target="iframe">
+									<i class="fa fa-circle-o"></i>影像资料上传
+							</a></li>
+							<li id="admin-login"><a href="imageCaseInfo.html"
+								target="iframe"> <i class="fa fa-circle-o"></i>识别结果查询
+							</a></li>
+							<li ng-if="loginName=='admin'" id="admin-login"><a
+								href="statistics.html" target="iframe"> <i
+									class="fa fa-circle-o"></i>统计信息查询
+							</a></li>
+
+							<li ng-if="loginName=='admin'" id="admin-login"><a
+								href="other.html" target="iframe"> <i class="fa fa-circle-o"></i>其他相关查询
+							</a></li>
+						</ul>
+					</li>
+					<li class="treeview" ng-if="loginName=='admin'">
+                    <a href="#"> <i class="fa fa-th"></i> <span>用户管理</span> <span class="pull-right-container"> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                        <ul class="treeview-menu">
+                            <li  id="admin-login"><a
+                                href="users.html" target="iframe"> <i class="fa fa-circle-o"></i>用户管理
+                            </a></li>
+                        </ul>
+                    </li>
+				</ul>
+			</section>
+			<!-- /.sidebar -->
+		</aside>
+		<!-- 内容区域 -->
+		<div class="content-wrapper" height="100%">
+			<iframe width="100%" height="100%" id="iframe" name="iframe"
+				onload="SetIFrameHeight()" frameborder="0" src="home.html"></iframe>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>结果查询</title>
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="../plugins/adminLTE/css/font-awesome.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/ionicons.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js">
+	
+</script>
+<!-- 分页组件开始 -->
+<script src="../plugins/angularjs/pagination.js"></script>
+<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+<!-- 分页组件结束 -->
+
+
+<script type="text/javascript" src="../js/base_pagination.js">
+	
+</script>
+<script type="text/javascript"
+	src="../js/service/imageCaseInfoService.js">
+	
+</script>
+<script type="text/javascript" src="../js/controller/baseController.js">
+	
+</script>
+<script type="text/javascript"
+	src="../js/controller/imageCaseInfoController.js">
+	
+</script>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
+	ng-controller="imageCaseInfoController">
+	<div class="box-body">
+		<!-- 数据表格 -->
+		<div class="table-box">
+
+			<!--工具栏-->
+			<div class="pull-left">
+				<div class="form-group form-inline">
+					案件号：<input ng-model="searchEntity.caseid" placeholder="案件号">
+					关键字查询：<input ng-model="searchEntity.info1" placeholder="可输入姓名 图片名等">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" title="刷新"
+							ng-click="reloadList()">
+							<i class="fa fa-refresh"></i> 查询
+						</button>
+						<button type="button" class="btn btn-default" title="删除"
+							ng-click="dele()">
+							<i class="fa fa-trash-o"></i> 删除
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="box-tools pull-right">
+				<div class="has-feedback"></div>
+			</div> -->
+			<!--工具栏/-->
+
+			<!--数据列表-->
+			<table id="dataList"
+				class="table table-bordered table-striped table-hover dataTable">
+				<thead>
+					<tr>
+						<th class="" style="padding-right: 0px"><input id="selall"
+							type="checkbox" class="icheckbox_square-blue"></th>
+						<th class="text-center">序号</th>
+						<th class="text-center">案件编号</th>
+						<th class="text-center">案件状态</th>
+						<th class="text-center">案件日期</th>
+						<th class="text-center">用户信息</th>
+						<th class="text-center">备注</th>
+						<!-- <th class="sorting">备用2</th> -->
+						<th class="text-center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="entity in list" ng-style="{background:entity.info2}">
+						<td><input type="checkbox"
+							ng-click="updateSelection($event,entity.id)"></td>
+						<td class="text-center">{{$index+1}}</td>
+						<td class="text-center">{{entity.caseid}}</td>
+						<td class="text-center">{{entity.casestatus}}</td>
+						<td class="text-center">{{entity.casedate}}</td>
+						<td class="text-center">{{entity.usercode}}</td>
+						<td class="text-center">{{entity.tips}}</td>
+						<!-- <td>{{entity.info2}}</td> -->
+						<td class="text-center">
+							<button type="button" class="btn btn-xs" data-toggle="modal"
+								data-target="#editModal" ng-click="findOne(entity.id)">查看结果</button>
+							<button type="button" class="btn btn-xs" data-toggle="modal"
+								ng-click="lastedStatus(entity.caseid)">查看进度</button>
+
+							<button type="button" class="btn btn-xs" data-toggle="modal"
+								ng-click="reSend(entity.caseid)">重新发送</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!--数据列表/-->
+			<!-- 分页 -->
+			<tm-pagination conf="paginationConf"></tm-pagination>
+		</div>
+		<!-- 数据表格 /-->
+	</div>
+	<!-- /.box-body -->
+
+	<!-- 编辑窗口 -->
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 800px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 id="myModalLabel">详情</h3>
+				</div>
+				<div class="modal-body">
+					<h4>案件信息 :</h4>
+					<br />
+					<table class="table table-bordered table-striped">
+						<tr>
+							<td>案件编号</td>
+							<td>
+								<!-- <input class="form-control"
+								ng-model="entity.imageCaseInfo.caseid" placeholder=""
+								disabled="disabled"> -->{{entity.imageCaseInfo.caseid}}
+							</td>
+						</tr>
+						<tr>
+							<td>案件状态</td>
+							<td>
+								<!-- <input class="form-control"
+								ng-model="entity.imageCaseInfo.casestatus" placeholder=""
+								disabled="disabled"> -->{{entity.imageCaseInfo.casestatus}}
+							</td>
+						</tr>
+						<tr>
+							<td>案件日期</td>
+							<td>
+								<!-- <input class="form-control"
+								ng-model="entity.imageCaseInfo.casedate" placeholder=""
+								disabled="disabled"> -->{{entity.imageCaseInfo.casedate}}
+							</td>
+						</tr>
+						<tr>
+							<td>用户信息</td>
+							<td>
+								<!-- <input class="form-control"
+								ng-model="entity.imageCaseInfo.usercode" placeholder=""
+								disabled="disabled"> -->{{entity.imageCaseInfo.usercode}}
+							</td>
+						</tr>
+						<!-- <tr>
+
+							<td>备用1</td>
+
+							<td><input class="form-control"
+								ng-model="entity.imageCaseInfo.info1" placeholder=""
+								disabled="disabled"></td>
+
+						</tr> -->
+						<!-- <tr>
+							<td>备用2</td>
+							<td><input class="form-control"
+								ng-model="entity.imageCaseInfo.info2" placeholder=""
+								disabled="disabled"></td>
+						</tr> -->
+					</table>
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#home" data-toggle="tab">图片列表</a>
+							</li>
+							<li><a href="#statistics" data-toggle="tab">统计信息</a></li>
+							<li><a href="#pic_upload" data-toggle="tab">全部结果</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="home">
+								<table id="dateDetail"
+									class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th class="text-center">序号</th>
+											<th class="text-center">照片名</th>
+											<th class="text-center">缩略图</th>
+											<th class="text-center">备注</th>
+											<th class="text-center">摘要</th>
+											<th class="text-center">操作</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr ng-repeat="img in entity.images"
+											ng-style="{background:img.info2}">
+											<th class="text-center" style="font-weight: normal;">{{$index+1}}</th>
+											<th class="text-center" style="font-weight: normal;">{{img.imgname}}</th>
+											<th class="text-center" style="font-weight: normal;"><img
+												alt="" src="{{img.info1}}" width="60px" height="60px"></th>
+											<th class="text-center" style="font-weight: normal;">{{img.info3}}</th>
+											<th class="text-center" style="font-weight: normal;">{{img.info4}}</th>
+											<th class="text-center" style="font-weight: normal;"><a
+												href="image.html#?caseId={{entity.imageCaseInfo.caseid}}&imgName={{img.imgname}}"
+												target="_blank">查看详情</a></th>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="tab-pane" id="statistics">
+								<div
+									ng-repeat="statisticEntity in entity.casePageStatisticsInfos track by $index">
+									<table class="table table-bordered table-striped"
+										width="1000px">
+										<thead>
+											<th class="text-center" style="background-color: #E1E1FF;">姓名:{{statisticEntity.name}}</th>
+										</thead>
+										<tbody>
+											<tr>
+												<th style="font-weight: normal;">票据数量：{{statisticEntity.imgCount}}</th>
+											</tr>
+											<tr>
+												<th style="font-weight: normal;">票据金额总计：{{statisticEntity.totalAmount}}</th>
+											</tr>
+											
+											 <tr>
+                                                <th style="font-weight: normal;">个人缴费：{{statisticEntity.personAmount}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="font-weight: normal;">社保(统筹)缴费：{{statisticEntity.socialAmount}}</th>
+                                            </tr>
+
+											<!-- <tr ng-if="statisticEntity.medical_fee_info.bed!=0">
+												<th style="font-weight: normal;">床位费：{{statisticEntity.medical_fee_info.bed}}</th>
+											</tr>
+
+											<tr
+												ng-if="statisticEntity.medical_fee_info.blood_transfusion!=0">
+												<th style="font-weight: normal;">输血费：{{statisticEntity.medical_fee_info.blood_transfusion}}</th>
+											</tr>
+											<tr
+												ng-if="statisticEntity.medical_fee_info.china_medicine!=0">
+												<th style="font-weight: normal;">中成药费：{{statisticEntity.medical_fee_info.china_medicine}}</th>
+											</tr>
+
+											<tr ng-if="statisticEntity.medical_fee_info.examination!=0">
+												<th style="font-weight: normal;">诊查费：{{statisticEntity.medical_fee_info.examination}}</th>
+											</tr>
+
+
+											<tr
+												ng-if="statisticEntity.medical_fee_info.herbal_medicine!=0">
+												<th style="font-weight: normal;">中草药费：{{statisticEntity.medical_fee_info.herbal_medicine}}</th>
+											</tr>
+
+
+											<tr ng-if="statisticEntity.medical_fee_info.inspection!=0">
+												<th style="font-weight: normal;">检查费：{{statisticEntity.medical_fee_info.inspection}}</th>
+											</tr>
+
+
+											<tr ng-if="statisticEntity.medical_fee_info.laboratory!=0">
+												<th style="font-weight: normal;">化验费：{{statisticEntity.medical_fee_info.laboratory}}</th>
+											</tr>
+
+											<tr ng-if="statisticEntity.medical_fee_info.material!=0">
+												<th style="font-weight: normal;">材料费：{{statisticEntity.medical_fee_info.material}}</th>
+											</tr>
+											<tr ng-if="statisticEntity.medical_fee_info.nursing!=0">
+												<th style="font-weight: normal;">护理费：{{statisticEntity.medical_fee_info.nursing}}</th>
+											</tr>
+
+											<tr
+												ng-if="statisticEntity.medical_fee_info.special_inspection!=0">
+												<th style="font-weight: normal;">特殊检查费：{{statisticEntity.medical_fee_info.special_inspection}}</th>
+											</tr>
+											</tr>
+											<tr ng-if="statisticEntity.medical_fee_info.surgery!=0">
+												<th style="font-weight: normal;">手术费：{{statisticEntity.medical_fee_info.surgery}}</th>
+											</tr>
+											</tr>
+											<tr ng-if="statisticEntity.medical_fee_info.west_medicine!=0">
+												<th style="font-weight: normal;">西药费：{{statisticEntity.medical_fee_info.west_medicine}}</th>
+											</tr>
+											<tr ng-if="statisticEntity.medical_fee_info.treatment!=0">
+												<th style="font-weight: normal;">治疗费：{{statisticEntity.medical_fee_info.treatment}}</th>
+											</tr>
+											<tr ng-if="statisticEntity.medical_fee_info.other!=0">
+                                                <th style="font-weight: normal;">其他：{{statisticEntity.medical_fee_info.other}}</th>
+                                            </tr> -->
+										</tbody>
+									</table >
+							
+									<table class="table table-bordered table-striped">
+									   <tbody>
+                                
+                                <tr ng-repeat=" medicalItem in statisticEntity.medicalFeeList track by $index">
+                               <th style="font-weight: normal;"> {{medicalItem}}</th>
+                                </tr>
+                                </tbody>
+									
+									</table>
+									
+								</div>
+							</div>
+
+							<div class="tab-pane" id="pic_upload">
+								<table class="table table-bordered table-striped" width="1000px">
+									<tbody>
+										<tr ng-repeat="infoEntity in entity.briefInfo track by $index">
+											<th style="font-weight: normal;">{{infoEntity}}</th>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" data-dismiss="modal"
+						aria-hidden="true">确认</button>
+					<!-- ng-click="save()" -->
+					<button class="btn btn-default" data-dismiss="modal"
+						aria-hidden="true">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

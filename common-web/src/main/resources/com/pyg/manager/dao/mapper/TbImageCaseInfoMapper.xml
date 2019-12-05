@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pyg.manager.dao.mapper.TbImageCaseInfoMapper">
+	<resultMap id="BaseResultMap" type="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="caseId" property="caseid" jdbcType="VARCHAR" />
+		<result column="caseStatus" property="casestatus" jdbcType="VARCHAR" />
+		<result column="caseDate" property="casedate" jdbcType="VARCHAR" />
+		<result column="userCode" property="usercode" jdbcType="VARCHAR" />
+		<result column="info1" property="info1" jdbcType="VARCHAR" />
+		<result column="info2" property="info2" jdbcType="VARCHAR" />
+		<result column="info3" property="info3" jdbcType="VARCHAR" />
+		<result column="info4" property="info4" jdbcType="VARCHAR" />
+		<result column="tips" property="tips" jdbcType="VARCHAR" />
+		<result column="resultDate" property="resultdate" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.pyg.manager.dao.pojo.TbImageCaseInfo"
+		extends="BaseResultMap">
+		<result column="result" property="result" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, caseId, caseStatus, caseDate, userCode, info1, info2,
+		info3, info4,
+		tips, resultDate
+	</sql>
+	<sql id="Blob_Column_List">
+		result
+	</sql>
+	<select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+		parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from tb_image_case_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from tb_image_case_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from tb_image_case_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="findByCaseId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from tb_image_case_info
+		where caseId = #{caseId,jdbcType=VARCHAR}
+	</select>
+	<select id="findByDate" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />,
+		<include refid="Blob_Column_List" />
+		from tb_image_case_info
+		<if test="startDate!=null and startDate!=''">
+			where
+			caseStatus=#{caseStatus,jdbcType=VARCHAR}
+			AND
+			DATE(caseDate) <![CDATA[>=]]>
+			DATE(#{startDate})
+			<if test="endDate!=null and  endDate!=''">
+				AND DATE(caseDate)<![CDATA[<=]]>
+				DATE(#{endDate})
+			</if>
+			<if test="endDate!=null and  endDate!=''">
+				AND DATE(caseDate)<![CDATA[<=]]>
+				DATE(#{endDate})
+			</if>
+			<if test="userCode!=null and  userCode!=''">
+				AND userCode= #{userCode,jdbcType=VARCHAR}
+			</if>
+
+		</if>
+
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		tb_image_case_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfoExample">
+		delete from tb_image_case_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		insert into tb_image_case_info
+		(id, caseId, caseStatus,
+		caseDate, userCode, info1,
+		info2, info3, info4,
+		tips, resultDate, result
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{caseid,jdbcType=VARCHAR},
+		#{casestatus,jdbcType=VARCHAR},
+		#{casedate,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR},
+		#{info1,jdbcType=VARCHAR},
+		#{info2,jdbcType=VARCHAR},
+		#{info3,jdbcType=VARCHAR},
+		#{info4,jdbcType=VARCHAR},
+		#{tips,jdbcType=VARCHAR}, #{resultdate,jdbcType=VARCHAR},
+		#{result,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		insert into tb_image_case_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="caseid != null">
+				caseId,
+			</if>
+			<if test="casestatus != null">
+				caseStatus,
+			</if>
+			<if test="casedate != null">
+				caseDate,
+			</if>
+			<if test="usercode != null">
+				userCode,
+			</if>
+			<if test="info1 != null">
+				info1,
+			</if>
+			<if test="info2 != null">
+				info2,
+			</if>
+			<if test="info3 != null">
+				info3,
+			</if>
+			<if test="info4 != null">
+				info4,
+			</if>
+			<if test="tips != null">
+				tips,
+			</if>
+			<if test="resultdate != null">
+				resultDate,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="caseid != null">
+				#{caseid,jdbcType=VARCHAR},
+			</if>
+			<if test="casestatus != null">
+				#{casestatus,jdbcType=VARCHAR},
+			</if>
+			<if test="casedate != null">
+				#{casedate,jdbcType=VARCHAR},
+			</if>
+			<if test="usercode != null">
+				#{usercode,jdbcType=VARCHAR},
+			</if>
+			<if test="info1 != null">
+				#{info1,jdbcType=VARCHAR},
+			</if>
+			<if test="info2 != null">
+				#{info2,jdbcType=VARCHAR},
+			</if>
+			<if test="info3 != null">
+				#{info3,jdbcType=VARCHAR},
+			</if>
+			<if test="info4 != null">
+				#{info4,jdbcType=VARCHAR},
+			</if>
+			<if test="tips != null">
+				#{tips,jdbcType=VARCHAR},
+			</if>
+			<if test="resultdate != null">
+				#{resultdate,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				#{result,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfoExample"
+		resultType="java.lang.Integer">
+		select count(*) from tb_image_case_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update tb_image_case_info
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.caseid != null">
+				caseId = #{record.caseid,jdbcType=VARCHAR},
+			</if>
+			<if test="record.casestatus != null">
+				caseStatus = #{record.casestatus,jdbcType=VARCHAR},
+			</if>
+			<if test="record.casedate != null">
+				caseDate = #{record.casedate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.usercode != null">
+				userCode = #{record.usercode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.info1 != null">
+				info1 = #{record.info1,jdbcType=VARCHAR},
+			</if>
+			<if test="record.info2 != null">
+				info2 = #{record.info2,jdbcType=VARCHAR},
+			</if>
+			<if test="record.info3 != null">
+				info3 = #{record.info3,jdbcType=VARCHAR},
+			</if>
+			<if test="record.info4 != null">
+				info4 = #{record.info4,jdbcType=VARCHAR},
+			</if>
+			<if test="record.tips != null">
+				tips = #{record.tips,jdbcType=VARCHAR},
+			</if>
+			<if test="record.resultdate != null">
+				resultDate = #{record.resultdate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.result != null">
+				result = #{record.result,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleWithBLOBs" parameterType="map">
+		update tb_image_case_info
+		set id = #{record.id,jdbcType=INTEGER},
+		caseId = #{record.caseid,jdbcType=VARCHAR},
+		caseStatus =
+		#{record.casestatus,jdbcType=VARCHAR},
+		caseDate =
+		#{record.casedate,jdbcType=VARCHAR},
+		userCode =
+		#{record.usercode,jdbcType=VARCHAR},
+		info1 =
+		#{record.info1,jdbcType=VARCHAR},
+		info2 =
+		#{record.info2,jdbcType=VARCHAR},
+		info3 =
+		#{record.info3,jdbcType=VARCHAR},
+		info4 =
+		#{record.info4,jdbcType=VARCHAR},
+		tips =
+		#{record.tips,jdbcType=VARCHAR},
+		resultDate =
+		#{record.resultdate,jdbcType=VARCHAR},
+		result =
+		#{record.result,jdbcType=LONGVARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update tb_image_case_info
+		set id = #{record.id,jdbcType=INTEGER},
+		caseId = #{record.caseid,jdbcType=VARCHAR},
+		caseStatus =
+		#{record.casestatus,jdbcType=VARCHAR},
+		caseDate =
+		#{record.casedate,jdbcType=VARCHAR},
+		userCode =
+		#{record.usercode,jdbcType=VARCHAR},
+		info1 =
+		#{record.info1,jdbcType=VARCHAR},
+		info2 =
+		#{record.info2,jdbcType=VARCHAR},
+		info3 =
+		#{record.info3,jdbcType=VARCHAR},
+		info4 =
+		#{record.info4,jdbcType=VARCHAR},
+		tips =
+		#{record.tips,jdbcType=VARCHAR},
+		resultDate =
+		#{record.resultdate,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		update tb_image_case_info
+		<set>
+			<if test="caseid != null">
+				caseId = #{caseid,jdbcType=VARCHAR},
+			</if>
+			<if test="casestatus != null">
+				caseStatus = #{casestatus,jdbcType=VARCHAR},
+			</if>
+			<if test="casedate != null">
+				caseDate = #{casedate,jdbcType=VARCHAR},
+			</if>
+			<if test="usercode != null">
+				userCode = #{usercode,jdbcType=VARCHAR},
+			</if>
+			<if test="info1 != null">
+				info1 = #{info1,jdbcType=VARCHAR},
+			</if>
+			<if test="info2 != null">
+				info2 = #{info2,jdbcType=VARCHAR},
+			</if>
+			<if test="info3 != null">
+				info3 = #{info3,jdbcType=VARCHAR},
+			</if>
+			<if test="info4 != null">
+				info4 = #{info4,jdbcType=VARCHAR},
+			</if>
+			<if test="tips != null">
+				tips = #{tips,jdbcType=VARCHAR},
+			</if>
+			<if test="resultdate != null">
+				resultDate = #{resultdate,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		update
+		tb_image_case_info
+		set caseId = #{caseid,jdbcType=VARCHAR},
+		caseStatus =
+		#{casestatus,jdbcType=VARCHAR},
+		caseDate =
+		#{casedate,jdbcType=VARCHAR},
+		userCode = #{usercode,jdbcType=VARCHAR},
+		info1 = #{info1,jdbcType=VARCHAR},
+		info2 = #{info2,jdbcType=VARCHAR},
+		info3 = #{info3,jdbcType=VARCHAR},
+		info4 = #{info4,jdbcType=VARCHAR},
+		tips = #{tips,jdbcType=VARCHAR},
+		resultDate =
+		#{resultdate,jdbcType=VARCHAR},
+		result = #{result,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pyg.manager.dao.pojo.TbImageCaseInfo">
+		update
+		tb_image_case_info
+		set caseId = #{caseid,jdbcType=VARCHAR},
+		caseStatus =
+		#{casestatus,jdbcType=VARCHAR},
+		caseDate =
+		#{casedate,jdbcType=VARCHAR},
+		userCode = #{usercode,jdbcType=VARCHAR},
+		info1 = #{info1,jdbcType=VARCHAR},
+		info2 = #{info2,jdbcType=VARCHAR},
+		info3 = #{info3,jdbcType=VARCHAR},
+		info4 = #{info4,jdbcType=VARCHAR},
+		tips = #{tips,jdbcType=VARCHAR},
+		resultDate =
+		#{resultdate,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

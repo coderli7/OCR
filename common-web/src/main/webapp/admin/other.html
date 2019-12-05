@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<!-- 页面meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>结果查询</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+	name="viewport">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../plugins/angularjs/angular.min.js">
+	
+</script>
+<!-- 分页组件开始 -->
+<script src="../plugins/angularjs/pagination.js"></script>
+<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+<!-- 分页组件结束 -->
+
+
+<script type="text/javascript" src="../js/base_pagination.js">
+	
+</script>
+<script type="text/javascript" src="../js/service/searchService.js">
+	
+</script>
+<script type="text/javascript" src="../js/controller/baseController.js">
+	
+</script>
+<script type="text/javascript"
+	src="../js/controller/searchController.js">
+	
+</script>
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
+	ng-controller="searchController">
+	<!-- .box-body -->
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="table-box">
+				<div class="box-tools pull-left">
+					<div class="has-feedback">
+						<button class="btn btn-default"
+							ng-click="BHClientAIOGetAccountBalance()">查询余额</button>
+						<button class="btn btn-default"
+							ng-click="BHClientAIOGetAccountBalanceDetail()">查询明细</button>
+						<!-- <button class="btn btn-default" ng-click="reloadList()">申请加速</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box-body" style="border: 1px; color: gray;">{{tips}}</div>
+	</div>
+</body>
+
+</html>

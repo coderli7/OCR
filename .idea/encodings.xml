@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/commmon-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-parent/common-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-pojo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-web" charset="UTF-8" />
+  </component>
+</project>
