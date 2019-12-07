@@ -29,11 +29,13 @@
             <scope>test</scope>
         </dependency>
 
+
         <dependency>
             <groupId>org.csource.fastdfs</groupId>
             <artifactId>fastdfs</artifactId>
             <version>1.2</version><!--$NO-MVN-MAN-VER$ -->
         </dependency>
+
         <!-- 文件上传组件 -->
         <dependency>
             <groupId>commons-fileupload</groupId>

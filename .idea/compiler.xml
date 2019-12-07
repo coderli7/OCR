@@ -13,7 +13,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="commmon-utils" target="1.7" />
-      <module name="common-parent" target="1.7" />
+      <module name="common-parent" target="1.5" />
       <module name="common-pojo" target="1.7" />
       <module name="common-utils" target="1.7" />
       <module name="common-web" target="1.7" />

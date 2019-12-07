@@ -57,11 +57,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+
+
         <!-- dubbo相关 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
@@ -160,16 +163,21 @@
             <version>0.4.8</version><!--$NO-MVN-MAN-VER$ -->
         </dependency>
 
+
         <dependency>
-            <groupId>ocr.pyg</groupId>
-            <artifactId>ocr-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.lxl.ocr</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>ocr.pyg</groupId>
-            <artifactId>ocr-pojo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.lxl.ocr</groupId>
+            <artifactId>common-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
+
+
+
     </dependencies>
 
     <build>
